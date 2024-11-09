@@ -1,0 +1,112 @@
+CODIGO DEL DIAGRAMA UML
+
+
+
+@startuml
+
+class Entidad {
+    +Agregar() : void
+    +Modificar() : void
+    +Eliminar() : void
+    +ListaDeConsulta() : void
+}
+
+class Paciente {
+    +id : String
+    +nombre : String
+    +edad : int
+    +genero : String
+    +email : String
+    +telefono : String
+    +direccion : String
+    +__init__(id: String, nombre: String, edad: int, genero: String, email: String, telefono: String, direccion: String)
+    +ListaDeConsulta() : void
+}
+
+class Quimico {
+    +id : String
+    +nombre : String
+    +direccion : String
+    +email : String
+    +telefono : String
+    +__init__(id: String, nombre: String, direccion: String, email: String, telefono: String)
+    +EntregaMedicamentos() : void
+}
+
+class Laboratorio {
+    +id : String
+    +nombre : String
+    +direccion : String
+    +email : String
+    +telefono : String
+    +__init__(id: String, nombre: String, direccion: String, email: String, telefono: String)
+    +RecolectarPrueba() : void
+    +GenerarInformeLaboral() : void
+}
+
+class Descripcion {
+    +idPrescripcion : int
+    +diagnostico : String
+    +nombreMedicina : String
+    +potenciaMedicamento : int
+    +frecuenciaMedicamento : int
+    +observaciones : String
+    +pruebaLaboratorio : String
+    +laboratorioInstrucciones : String
+    +preincripcionesEntregar : String
+    +solicitudesLaboratorioRealizadas : String
+    +montoFactura : float
+    +__init__(idPrescripcion: int, diagnostico: String, nombreMedicina: String, potenciaMedicamento: int, 
+    frecuenciaMedicamento: int, observaciones: String, pruebaLaboratorio: String, 
+    laboratorioInstrucciones: String, preincripcionesEntregar: String, solicitudesLaboratorioRealizadas: String, 
+    montoFactura: float)
+    +GenerarFactura() : void
+}
+
+class Doctores {
+    +id : String
+    +nombre : String
+    +edad : int
+    +genero : String
+    +calificacion : String
+    +experiencia : String
+    +numeroRegistro : String
+    +__init__(id: String, nombre: String, edad: int, genero: String, calificacion: String, experiencia: String, numeroRegistro: String)
+    +ListaDeConsulta() : void
+}
+
+class Consultas {
+    +paciente : Paciente
+    +doctor : Doctores
+    +en_linea_o_cita : String
+    +fecha_solicitud : String
+    +cadena_sintomas : String
+    +estado_solicitud : String
+    +__init__(paciente: Paciente, doctor: Doctores, en_linea_o_cita: String, fecha_solicitud: String, 
+    cadena_sintomas: String, estado_solicitud: String)
+    +ListaDeConsulta() : void
+}
+
+class Especialista {
+    +ssd : String
+    +nombre : String
+    +descripcion : String
+    +__init__(ssd: String, nombre: String, descripcion: String)
+}
+
+Entidad <|-- Paciente
+Entidad <|-- Quimico
+Entidad <|-- Laboratorio
+Entidad <|-- Descripcion
+Entidad <|-- Doctores
+Entidad <|-- Consultas
+
+Doctores <|-- Especialista
+Descripcion <|-- Especialista
+
+Paciente "1" --> "*" Consultas : realiza
+Doctores "1" --> "*" Consultas : atiende
+Quimico "1" --> "*" Descripcion : entrega
+Laboratorio "1" --> "*" Descripcion : recolecta
+
+@enduml
